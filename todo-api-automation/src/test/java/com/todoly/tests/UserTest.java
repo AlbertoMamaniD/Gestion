@@ -15,19 +15,19 @@ public class UserTest extends BaseTest {
 
     static int userId;
 
-    static String email = "alberto" + System.currentTimeMillis() + "@mail.com";
+    static String email = "albertomamaniesteban" + System.currentTimeMillis() + "@gmail.com";
     static String password = "123456";
 
     @Test
     @Order(1)
     @Description("Create user")
-    @Owner("Alberto Mamani")
+    @Owner("Alberto Mamani Esteban")
     public void createUserTest() {
 
         String body = """
                 {
                     "Email": "%s",
-                    "FullName": "Alberto Mamani",
+                    "FullName": "Alberto Mamani Esteban",
                     "Password": "%s"
                 }
                 """.formatted(email, password);
@@ -40,7 +40,7 @@ public class UserTest extends BaseTest {
                         .post("/api/user.json")
                 .then()
                         .statusCode(200)
-                        .body("FullName", equalTo("Alberto Mamani"))
+                        .body("FullName", equalTo("Alberto Mamani Esteban"))
                         .extract().response();
 
         userId = response.jsonPath().getInt("Id");
@@ -51,6 +51,7 @@ public class UserTest extends BaseTest {
     @Test
     @Order(2)
     @Description("Get user")
+    @Owner("Alberto Mamani Esteban")
     public void getUserTest() {
 
         given()
@@ -69,11 +70,12 @@ public class UserTest extends BaseTest {
     @Test
     @Order(3)
     @Description("Update user")
+    @Owner("Alberto Mamani Esteban")
     public void updateUserTest() {
 
         String body = """
                 {
-                    "FullName": "Alberto Mamani Actualizado"
+                    "FullName": "Alberto Mamani Esteban Actualizado"
                 }
                 """;
 
@@ -89,12 +91,13 @@ public class UserTest extends BaseTest {
 
         .then()
                 .statusCode(200)
-                .body("FullName", equalTo("Alberto Mamani Actualizado"));
+                .body("FullName", equalTo("Alberto Mamani Esteban Actualizado"));
     }
 
     @Test
     @Order(4)
     @Description("Delete user")
+    @Owner("Alberto Mamani Esteban")
     public void deleteUserTest() {
 
         given()

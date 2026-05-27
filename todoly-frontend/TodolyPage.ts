@@ -19,6 +19,10 @@ export class TodoLyPage {
     // --- Título central ---
     readonly projectTitleLabel: Locator;
 
+    // --- Items ---
+    readonly newItemInput: Locator;
+    readonly newItemAddBtn: Locator;
+
     constructor(page: Page) {
         this.page = page;
 
@@ -37,6 +41,10 @@ export class TodoLyPage {
 
         // Centro
         this.projectTitleLabel = page.locator('#CurrentProjectTitle');
+
+        // Items
+        this.newItemInput = page.locator('#NewItemContentInput');
+        this.newItemAddBtn = page.locator('#NewItemAddButton');
     }
 
     /** Navega a la home y hace login */
@@ -69,5 +77,13 @@ export class TodoLyPage {
         const item = this.page.locator('table.ProjItemTable td', { hasText: name }).first();
         await item.waitFor({ state: 'visible', timeout: 10_000 });
         await item.click();
+    }
+
+    /** Agrega un nuevo item al proyecto seleccionado */
+    async addNewItem(content: string): Promise<void> {
+        await this.newItemInput.waitFor({ state: 'visible', timeout: 5_000 });
+        await this.newItemInput.fill(content);
+        await this.newItemAddBtn.waitFor({ state: 'visible', timeout: 5_000 });
+        await this.newItemAddBtn.click();
     }
 }
